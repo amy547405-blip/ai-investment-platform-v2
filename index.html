@@ -15,7 +15,7 @@ footer{color:var(--muted);font-size:12px;margin-top:18px}.hide{display:none!impo
 @media(max-width:850px){.grid{grid-template-columns:1fr}.fields{grid-template-columns:repeat(2,minmax(120px,1fr))}.metrics{grid-template-columns:repeat(2,1fr)}.full{grid-column:auto}.wrap{padding:15px 10px 30px}.card{padding:14px}}
 </style></head>
 <body><main class="wrap">
-<header class="top"><div class="brand"><h1>AI智能股票基金分析平台</h1><p>多批次持仓 · 独立止盈止损 · 全部自选基金单页总览</p></div><span class="tag">VERSION 3.0 · 盈亏分析</span></header>
+<header class="top"><div class="brand"><h1>AI智能股票基金分析平台</h1><p>多批次持仓 · 独立止盈止损 · 全部自选基金单页总览</p></div><span class="tag">VERSION 3.1 · 免费预警</span></header>
 <div class="tabs"><button class="tab active" data-tab="fund">基金总览</button><button class="tab" data-tab="stock">股票行情</button><button class="tab" data-tab="report">收盘报告</button></div>
 
 <section id="fund" class="tabpage">
@@ -56,7 +56,10 @@ footer{color:var(--muted);font-size:12px;margin-top:18px}.hide{display:none!impo
 <div class="notice">止盈价 = 该批买入价 ×（1 + 止盈比例）；止损价 = 该批买入价 ×（1 − 止损比例）。可用份额不能大于持有份额；留空可用份额时默认等于持有份额。持仓盈亏按持有份额计算，可用份额用于记录可卖出数量。</div>
 </div>
 <div class="card" style="margin-top:16px">
-<h2>分批预警记录</h2><div id="fundAlertLog" class="report">暂无基金预警记录。</div>
+<div class="row" style="justify-content:space-between;align-items:center"><h2 style="margin:0">免费止盈止损提醒</h2><button class="btn primary" id="enableNotify">开启桌面提醒</button></div>
+<div class="notice" id="notifyStatus">提醒方式：免费浏览器桌面通知 + 页面内预警记录。首次使用请点击“开启桌面提醒”并允许浏览器通知权限。</div>
+<div class="row" style="margin-top:10px"><button class="btn" id="testNotify">发送测试提醒</button><button class="btn" id="clearAlertLog">清空预警记录</button></div>
+<h2 style="margin-top:18px">分批预警记录</h2><div id="fundAlertLog" class="report">暂无基金预警记录。</div>
 </div>
 </section>
 
@@ -66,7 +69,7 @@ footer{color:var(--muted);font-size:12px;margin-top:18px}.hide{display:none!impo
 <div class="card"><h2>股票观察说明</h2><p class="muted">大唐发电（601991）行情用于观察。基金多批次持仓与预警集中显示在“基金总览”页。</p></div>
 </section>
 <section id="report" class="tabpage hide"><div class="card"><h2>每日观察报告</h2><div class="row"><button class="btn primary" id="makeReport">生成今日报告</button><button class="btn" id="copyReport">复制报告</button></div><div class="report" id="reportText" style="margin-top:12px">点击生成今日报告。</div></div></section>
-<footer>V3.0 份额管理版。持有份额用于计算持仓市值和盈亏，可用份额用于记录可卖出数量；持仓及批次数据保存在当前浏览器 localStorage；更换浏览器或清除网站数据可能导致本地记录丢失，请定期备份。基金估值不是正式净值，预警仅在网页打开且刷新成功时判断，不会自动下单。</footer>
+<footer>V3.1 免费止盈止损提醒版。持有份额用于计算持仓市值和盈亏，可用份额用于记录可卖出数量；持仓及批次数据保存在当前浏览器 localStorage；更换浏览器或清除网站数据可能导致本地记录丢失，请定期备份。基金估值不是正式净值，免费止盈止损提醒依赖浏览器通知权限；网页需保持打开并联网，每分钟自动刷新一次，关闭网页或电脑休眠时不会提醒；不会自动下单。</footer>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -180,7 +183,9 @@ function editBatchPrompt(code,id){
 function removeBatch(code,id){const f=funds.find(x=>x.code===code);if(!f)return;if(!confirm('确定删除该买入批次？'))return;f.batches=f.batches.filter(b=>b.id!==id);save();render()}
 function logAlert(msg){
  let logs=JSON.parse(localStorage.getItem('aip_fund_alert_log_v24')||'[]');logs.unshift(new Date().toLocaleString('zh-CN')+' · '+msg);logs=logs.slice(0,100);localStorage.setItem('aip_fund_alert_log_v24',JSON.stringify(logs));
- if('Notification'in window&&Notification.permission==='granted')new Notification('基金批次价格预警',{body:msg});
+ if('Notification'in window&&Notification.permission==='granted'){
+  try{new Notification('基金止盈止损提醒',{body:msg,tag:'fund-alert-'+Date.now()});}catch(e){showPageAlert(msg)}
+ }else showPageAlert(msg);
 }
 function checkAllAlerts(){
  let changed=false;
@@ -210,8 +215,11 @@ async function refreshAll(){
 function switchTab(id){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));document.querySelectorAll('.tabpage').forEach(x=>x.classList.toggle('hide',x.id!==id))}
 document.querySelectorAll('.tab').forEach(x=>x.onclick=()=>switchTab(x.dataset.tab));
 $('addFund').onclick=addFund;$('addBatch').onclick=addBatch;$('refreshFunds').onclick=refreshAll;
+$('enableNotify').onclick=enableNotifications;$('testNotify').onclick=sendTestNotification;
+$('clearAlertLog').onclick=()=>{if(confirm('确定清空所有预警记录吗？')){localStorage.removeItem('aip_fund_alert_log_v24');renderLogs()}};
+updateNotifyStatus();
 $('newCode').addEventListener('keydown',e=>{if(e.key==='Enter')addFund()});
-$('makeReport').onclick=()=>{$('reportText').textContent=['AI智能股票基金分析平台 V3.0｜每日观察报告','日期：'+new Date().toLocaleString('zh-CN'),'自选基金：'+funds.length+'只','持仓批次：'+funds.reduce((n,f)=>n+(f.batches||[]).length,0)+'批',...funds.flatMap(f=>(f.batches||[]).map((b,i)=>{const [st]=batchState(f,b);const a=getAIEstimate(f);const sh=Number(b.shares)||0,cost=(Number(b.buy)||0)*sh,val=(Number(f.price)||0)*sh,hold=sh>0&&f.price>0?val-cost:null,g=Number(f.growth),day=sh>0&&f.price>0&&Number.isFinite(g)&&g>-100?val*g/(100+g):null;return `${f.name}（${f.code}）第${i+1}批：买入价${fmt(b.buy)}，持有份额${fmt(sh,2)}，可用份额${fmt(b.availableShares??sh,2)}，实时估值${fmt(f.price)}，持仓盈亏${hold===null?'暂无':hold.toFixed(2)+'元'}，当日盈亏${day===null?'暂无':day.toFixed(2)+'元'}，AI预估值${a?fmt(a.value):'暂无'}，状态${st}`})),'说明：AI预估值由免费内置规则模型按实时估值和当日涨跌幅保守推算，不是大语言模型或新闻分析，置信度较低；实时估值为第三方盘中估算，非基金公司正式净值。报告仅供参考，不构成投资建议。'].join('\n')};
+$('makeReport').onclick=()=>{$('reportText').textContent=['AI智能股票基金分析平台 V3.1｜每日观察报告','日期：'+new Date().toLocaleString('zh-CN'),'自选基金：'+funds.length+'只','持仓批次：'+funds.reduce((n,f)=>n+(f.batches||[]).length,0)+'批',...funds.flatMap(f=>(f.batches||[]).map((b,i)=>{const [st]=batchState(f,b);const a=getAIEstimate(f);const sh=Number(b.shares)||0,cost=(Number(b.buy)||0)*sh,val=(Number(f.price)||0)*sh,hold=sh>0&&f.price>0?val-cost:null,g=Number(f.growth),day=sh>0&&f.price>0&&Number.isFinite(g)&&g>-100?val*g/(100+g):null;return `${f.name}（${f.code}）第${i+1}批：买入价${fmt(b.buy)}，持有份额${fmt(sh,2)}，可用份额${fmt(b.availableShares??sh,2)}，实时估值${fmt(f.price)}，持仓盈亏${hold===null?'暂无':hold.toFixed(2)+'元'}，当日盈亏${day===null?'暂无':day.toFixed(2)+'元'}，AI预估值${a?fmt(a.value):'暂无'}，状态${st}`})),'说明：AI预估值由免费内置规则模型按实时估值和当日涨跌幅保守推算，不是大语言模型或新闻分析，置信度较低；实时估值为第三方盘中估算，非基金公司正式净值。报告仅供参考，不构成投资建议。'].join('\n')};
 $('copyReport').onclick=()=>navigator.clipboard?.writeText($('reportText').textContent).then(()=>alert('报告已复制')).catch(()=>alert('复制失败，请手动复制'));
 $('batchDate').value=new Date().toISOString().slice(0,10);
 render();if(funds.length)refreshAll();setInterval(()=>{if(!document.hidden)refreshAll()},60000);
