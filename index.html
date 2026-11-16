@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#101827">
 <meta name="description" content="股票行情、基金净值、风险预警与每日分析报告工具。">
 <meta name="mobile-web-app-capable" content="yes">
-<title>AI智能股票基金分析平台 V2.2</title>
+<title>AI智能股票基金分析平台 V2.3</title>
 <style>
 :root{--bg:#0b1220;--panel:#121d2e;--panel2:#172438;--line:#26364c;--text:#edf4ff;--muted:#94a6bd;--green:#23c483;--red:#ff667a;--blue:#6ea8ff;--gold:#f5c66a}
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#0b1220,#101b2c 60%,#0b1220);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -18,7 +18,7 @@ footer{color:var(--muted);font-size:12px;margin-top:18px}.full{grid-column:1/-1}
 </style>
 </head>
 <body><main class="wrap">
-<header class="top"><div class="brand"><h1>AI智能股票基金分析平台</h1><p>行情观察 · 趋势分析 · 止盈止损 · 收盘报告</p></div><span class="tag">VERSION 2.2 · 免费网页版</span></header>
+<header class="top"><div class="brand"><h1>AI智能股票基金分析平台</h1><p>行情观察 · 趋势分析 · 止盈止损 · 收盘报告</p></div><span class="tag">VERSION 2.3 · 免费网页版</span></header>
 <div class="tabs"><button class="tab active" data-tab="stock">股票行情</button><button class="tab" data-tab="fund">基金查询</button><button class="tab" data-tab="alerts">预警设置</button><button class="tab" data-tab="report">收盘报告</button></div>
 <section id="stock" class="grid tabpage">
 <div class="card">
@@ -53,7 +53,7 @@ footer{color:var(--muted);font-size:12px;margin-top:18px}.full{grid-column:1/-1}
 <section id="report" class="grid tabpage" style="display:none">
 <div class="card full"><h2>每日收盘分析报告</h2><div class="row"><button class="btn primary" id="makeReport">生成今日报告</button><button class="btn" id="copyReport">复制报告</button><button class="btn" id="saveReport">保存报告</button></div><div class="report" id="reportText" style="margin-top:13px">点击“生成今日报告”。报告将使用当前已取得的行情与历史数据；如果行情为空，会明确标注数据缺失。</div></div>
 </section>
-<footer>V2.2 免费网页版。风险提示：本工具仅用于信息整理和学习，不提供投资建议，不保证行情实时性或完整性。数据接口由第三方提供，价格和净值请以交易所、基金管理人及持牌券商信息为准。预警不是交易指令。</footer>
+<footer>V2.3 免费网页版。风险提示：本工具仅用于信息整理和学习，不提供投资建议，不保证行情实时性或完整性。数据接口由第三方提供，价格和净值请以交易所、基金管理人及持牌券商信息为准。预警不是交易指令。</footer>
 </main>
 <script>
 const $=id=>document.getElementById(id);let quote=null,historyRows=[],lastAlertKey='',reports=JSON.parse(localStorage.getItem('aip_reports')||'[]');
@@ -177,22 +177,46 @@ function updateFundStats(){
 }
 function fetchFundQuote(f){
  return new Promise(resolve=>{
-  const old=document.getElementById('fundWatchScript');if(old)old.remove();
-  let done=false;
+  let finished=false,primaryTimer=null,fallbackTimer=null;
   const finish=(data)=>{
-   if(done)return;done=true;clearTimeout(timer);
-   if(data){
-    f.name=data.name||f.name;
-    const val=Number(data.gsz||data.dwjz);
-    if(val>0){f.price=val;f.priceDate=data.gztime||data.jzrq||new Date().toLocaleDateString('zh-CN');f.source=data.gsz?'盘中估算':'接口返回净值';}
+   if(finished)return;finished=true;
+   clearTimeout(primaryTimer);clearTimeout(fallbackTimer);
+   if(data&&Number(data.price)>0){
+    f.name=data.name||f.name;f.price=Number(data.price);
+    f.priceDate=data.date||new Date().toLocaleDateString('zh-CN');
+    f.source=data.source||'公开净值接口';
    }
-   resolve(!!data);
+   resolve(!!data&&Number(data.price)>0);
   };
-  window.jsonpgz=(d)=>finish(d);
-  const s=document.createElement('script');s.id='fundWatchScript';
+  const fallback=()=>{
+   if(finished)return;
+   $('fundWatchStatus')&&($('fundWatchStatus').textContent='估值接口暂不可用，正在尝试读取最近公布的基金净值…');
+   const sid='fundHistory_'+f.code;
+   const old=document.getElementById(sid);if(old)old.remove();
+   const s=document.createElement('script');s.id=sid;
+   s.src='https://fund.eastmoney.com/pingzhongdata/'+f.code+'.js?v='+Date.now();
+   s.onload=()=>{
+    const rows=window.Data_netWorthTrend;
+    if(Array.isArray(rows)&&rows.length){
+     const last=rows[rows.length-1];
+     finish({name:window.fS_name||f.name,price:last.y,date:last.x?new Date(last.x).toLocaleDateString('zh-CN'):'最近公布净值',source:'最近公布净值（非实时估值）'});
+    }else finish(null);
+   };
+   s.onerror=()=>finish(null);
+   fallbackTimer=setTimeout(()=>finish(null),7000);
+   document.body.appendChild(s);
+  };
+  window.jsonpgz=(d)=>{
+   if(finished)return;
+   const price=Number(d&&(d.gsz||d.dwjz));
+   if(price>0)finish({name:d.name,price,date:d.gztime||d.jzrq,source:d.gsz?'盘中估算（非正式净值）':'接口净值'});
+  };
+  const sid='fundEstimate_'+f.code;
+  const old=document.getElementById(sid);if(old)old.remove();
+  const s=document.createElement('script');s.id=sid;
   s.src='https://fundgz.1234567.com.cn/js/'+f.code+'.js?rt='+Date.now();
-  s.onerror=()=>finish(null);
-  const timer=setTimeout(()=>finish(null),5500);
+  s.onerror=fallback;
+  primaryTimer=setTimeout(fallback,5000);
   document.body.appendChild(s);
  });
 }
@@ -212,11 +236,14 @@ $('refreshFunds').onclick=refreshAllFunds;
 $('fundBtn').onclick=()=>{
  const code=$('fundCode').value.trim();
  if(!/^\d{6}$/.test(code)){alert('请输入6位基金代码');return}
- $('fundStatus').textContent='正在请求基金估值…';
+ $('fundStatus').textContent='正在查询基金估值；若估值接口不可用，将尝试读取最近公布净值…';
  const temp={code,name:'基金 '+code,buy:0,sell:0,stop:0,profitPct:10,lossPct:5,price:0};
  fetchFundQuote(temp).then(ok=>{
-  if(ok){$('fundName').textContent=temp.name;$('fundNav').textContent=Number(temp.price).toFixed(4);$('fundGrowth').textContent='--';$('fundDate').textContent=temp.priceDate;$('fundStatus').textContent='已取得第三方接口返回数据；可能为盘中估值，并非正式净值。'}
-  else{$('fundStatus').textContent='基金估值接口未返回数据，请稍后重试或核对基金代码。'}
+  if(ok){
+   $('fundName').textContent=temp.name;$('fundNav').textContent=Number(temp.price).toFixed(4);
+   $('fundGrowth').textContent='--';$('fundDate').textContent=temp.priceDate;
+   $('fundStatus').textContent='已取得数据：'+temp.source+'。请注意估值与正式净值可能不同。';
+  }else{$('fundStatus').textContent='估值和备用净值接口均未返回数据。请检查基金代码或网络后重试；也可手动添加基金并录入价格。'}
  });
 };
 let a=getSettings();$('buyPrice').value=a.buy||'';$('profitPct').value=a.profitPct||10;$('lossPct').value=a.lossPct||5;$('takeProfit').value=a.tp||'';$('stopLoss').value=a.sl||'';$('upPct').value=a.up||'';$('downPct').value=a.down||'';updateAIBuyAdvice();renderLogs();renderFundWatch();updateFundStats();fetchQuote();if(fundWatch.length)refreshAllFunds();setInterval(()=>{if(!document.hidden){fetchQuote();if(fundWatch.length)refreshAllFunds()}},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)fetchQuote()});window.addEventListener('resize',drawChart);
