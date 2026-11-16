@@ -5,20 +5,20 @@
 <meta name="theme-color" content="#101827">
 <meta name="description" content="股票行情、基金净值、风险预警与每日分析报告工具。">
 <meta name="mobile-web-app-capable" content="yes">
-<title>AI智能股票基金分析平台 V2.0</title>
+<title>AI智能股票基金分析平台 V2.2</title>
 <style>
 :root{--bg:#0b1220;--panel:#121d2e;--panel2:#172438;--line:#26364c;--text:#edf4ff;--muted:#94a6bd;--green:#23c483;--red:#ff667a;--blue:#6ea8ff;--gold:#f5c66a}
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#0b1220,#101b2c 60%,#0b1220);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
 .wrap{max-width:1180px;margin:auto;padding:22px 16px 50px}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}.brand h1{font-size:clamp(22px,4vw,32px);margin:0}.brand p{color:var(--muted);margin:4px 0}.tag{border:1px solid #31506e;color:#9cc7ff;padding:6px 11px;border-radius:999px;font-size:12px}
 .grid{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:18px}.card{background:linear-gradient(160deg,var(--panel),#101a2a);border:1px solid var(--line);border-radius:17px;padding:18px;box-shadow:0 12px 35px #0002}.card h2{font-size:17px;margin:0 0 13px}.hero{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}.symbol{font-size:13px;color:var(--muted)}.price{font-size:clamp(32px,6vw,44px);font-weight:750;letter-spacing:-1px;margin:4px 0}.positive{color:var(--red)}.negative{color:var(--green)}.neutral{color:var(--muted)}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.metric{background:var(--panel2);border-radius:12px;padding:11px}.metric small{display:block;color:var(--muted);font-size:12px}.metric strong{display:block;margin-top:4px;font-size:16px}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.btn{border:1px solid #36516f;background:#1c3048;color:#eaf3ff;padding:9px 13px;border-radius:10px;cursor:pointer;font-weight:600}.btn.primary{background:#2563a6;border-color:#367cc4}.btn:hover{filter:brightness(1.12)}.status{font-size:12px;color:var(--muted);margin-top:10px}.status.ok{color:var(--green)}.status.err{color:var(--gold)}.chartbox{height:230px;margin-top:12px;background:#0e1827;border:1px solid var(--line);border-radius:12px;padding:8px}.chartbox canvas{width:100%;height:100%}
 .fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px}input,select{width:100%;background:#0d1725;border:1px solid #30435b;color:var(--text);padding:10px;border-radius:9px;font-size:14px}input:focus{outline:1px solid var(--blue)}.notice{padding:11px 13px;background:#182b40;border:1px solid #2b4b69;border-radius:11px;color:#c8dcf4;font-size:13px;margin-top:12px}
-.list{display:grid;gap:9px}.item{display:flex;justify-content:space-between;gap:10px;background:var(--panel2);padding:11px;border-radius:10px}.item small{display:block;color:var(--muted)}.report{white-space:pre-wrap;background:#0d1725;border:1px solid var(--line);padding:13px;border-radius:11px;min-height:120px;color:#dce9f8;font-size:13px}
+.list{display:grid;gap:9px}.item{display:flex;justify-content:space-between;gap:10px;background:var(--panel2);padding:11px;border-radius:10px}.item small{display:block;color:var(--muted)}.fund-card{display:block;background:var(--panel2);padding:13px;border-radius:12px;border:1px solid var(--line)}.fund-card-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}.fund-card .fields{margin-top:10px}.fund-card .notice{margin-top:9px}.fund-card .btn{padding:7px 10px;font-size:12px}.report{white-space:pre-wrap;background:#0d1725;border:1px solid var(--line);padding:13px;border-radius:11px;min-height:120px;color:#dce9f8;font-size:13px}
 footer{color:var(--muted);font-size:12px;margin-top:18px}.full{grid-column:1/-1}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.tab{padding:8px 12px;border-radius:999px;background:#142338;border:1px solid var(--line);color:#c9d8eb;cursor:pointer}.tab.active{background:#244b75;border-color:#4b8ac4}
 @media(max-width:800px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.wrap{padding:16px 12px 35px}.card{padding:15px}.full{grid-column:auto}}
 </style>
 </head>
 <body><main class="wrap">
-<header class="top"><div class="brand"><h1>AI智能股票基金分析平台</h1><p>行情观察 · 趋势分析 · 止盈止损 · 收盘报告</p></div><span class="tag">VERSION 2.0 · 免费网页版</span></header>
+<header class="top"><div class="brand"><h1>AI智能股票基金分析平台</h1><p>行情观察 · 趋势分析 · 止盈止损 · 收盘报告</p></div><span class="tag">VERSION 2.2 · 免费网页版</span></header>
 <div class="tabs"><button class="tab active" data-tab="stock">股票行情</button><button class="tab" data-tab="fund">基金查询</button><button class="tab" data-tab="alerts">预警设置</button><button class="tab" data-tab="report">收盘报告</button></div>
 <section id="stock" class="grid tabpage">
 <div class="card">
@@ -34,19 +34,30 @@ footer{color:var(--muted);font-size:12px;margin-top:18px}.full{grid-column:1/-1}
 </section>
 <section id="fund" class="grid tabpage" style="display:none">
 <div class="card"><h2>基金净值查询</h2><div class="fields"><div><label>基金代码（6位）</label><input id="fundCode" maxlength="6" placeholder="例如 000001"></div><div style="align-self:end"><button class="btn primary" id="fundBtn">查询基金</button></div></div><div class="metrics"><div class="metric"><small>基金名称</small><strong id="fundName">--</strong></div><div class="metric"><small>单位净值</small><strong id="fundNav">--</strong></div><div class="metric"><small>估算涨跌</small><strong id="fundGrowth">--</strong></div><div class="metric"><small>净值日期</small><strong id="fundDate">--</strong></div></div><div id="fundStatus" class="status">使用基金公开估值接口尝试查询；并非所有基金都支持估值。</div></div>
-<div class="card"><h2>数据说明</h2><p class="symbol">基金估值不是正式基金净值。正式净值通常在交易日收盘后由基金公司公布，估算值仅供参考。</p><p class="symbol">如接口无法访问，可稍后重试，或通过基金公司/销售平台核对净值。</p></div>
+<div class="card"><h2>我的自选基金</h2>
+<div class="fields"><div><label>添加基金代码（6位）</label><input id="watchFundCode" maxlength="6" inputmode="numeric" placeholder="例如 000001"></div><div style="align-self:end"><button class="btn primary" id="addWatchFund">添加到自选</button></div></div>
+<div class="notice">每只基金可独立填写买入价、目标卖出价和止损价。添加后系统会尝试获取最新估值/已公布净值，并按买入价统计盈亏及预警。</div>
+<div id="fundWatchlist" class="list" style="margin-top:12px"><div class="item">还没有自选基金，请输入代码添加。</div></div>
+<div class="row" style="margin-top:12px"><button class="btn" id="refreshFunds">刷新全部自选基金</button></div>
+<div id="fundWatchStatus" class="status">基金数据仅在网页打开时刷新；第三方接口可能延迟或不可用。</div>
+</div>
+<div class="card"><h2>基金预警统计</h2><div class="metrics" style="grid-template-columns:repeat(2,1fr)"><div class="metric"><small>自选基金数量</small><strong id="fundCount">0</strong></div><div class="metric"><small>已设置买入价</small><strong id="fundCostCount">0</strong></div><div class="metric"><small>止盈触发数</small><strong id="fundProfitCount">0</strong></div><div class="metric"><small>止损触发数</small><strong id="fundLossCount">0</strong></div></div>
+<h2 style="margin-top:18px">AI综合分析</h2><div id="fundAIStats" class="notice">添加基金并填写买入价后，显示组合盈亏和预警统计。</div>
+<h2 style="margin-top:18px">基金预警记录</h2><div id="fundAlertLog" class="list"><div class="item">暂无基金预警记录</div></div>
+<p class="symbol" style="margin-top:14px">基金估值不是正式基金净值。正式净值通常在交易日收盘后由基金公司公布，可能在收盘后更新。此功能用于价格规则统计，不代表人工智能预测，也不会自动下单。</p></div>
 </section>
 <section id="alerts" class="grid tabpage" style="display:none">
-<div class="card"><h2>大唐发电价格预警</h2><div class="fields"><div><label>止盈价格（元）</label><input id="takeProfit" type="number" step="0.01" placeholder="例如 4.50"></div><div><label>止损价格（元）</label><input id="stopLoss" type="number" step="0.01" placeholder="例如 3.80"></div><div><label>涨幅提醒（%）</label><input id="upPct" type="number" step="0.1" placeholder="例如 3"></div><div><label>跌幅提醒（%）</label><input id="downPct" type="number" step="0.1" placeholder="例如 -3"></div></div><div class="row" style="margin-top:13px"><button class="btn primary" id="saveAlert">保存预警设置</button><button class="btn" id="testAlert">测试通知</button></div><div id="alertStatus" class="status">预警仅在网页打开且行情刷新成功时判断；关闭网页后不会后台监控。</div></div>
+<div class="card"><h2>大唐发电价格预警</h2><div class="fields"><div><label>买入价格（元）</label><input id="buyPrice" type="number" min="0" step="0.001" placeholder="输入实际买入价格"></div><div><label>止盈比例（%）</label><input id="profitPct" type="number" min="0.1" step="0.1" value="10"></div><div><label>止损比例（%）</label><input id="lossPct" type="number" min="0.1" step="0.1" value="5"></div><div><label>自动计算的止盈价格（元）</label><input id="takeProfit" type="number" step="0.001" placeholder="根据买入价计算"></div><div><label>自动计算的止损价格（元）</label><input id="stopLoss" type="number" step="0.001" placeholder="根据买入价计算"></div><div><label>涨幅提醒（%）</label><input id="upPct" type="number" step="0.1" placeholder="例如 3"></div><div><label>跌幅提醒（%）</label><input id="downPct" type="number" step="0.1" placeholder="例如 -3"></div></div><div class="row" style="margin-top:13px"><button class="btn primary" id="calcBuyAlert">按买入价计算预警</button><button class="btn" id="saveAlert">保存预警设置</button><button class="btn" id="testAlert">测试通知</button></div><div class="notice" id="aiBuyAdvice">输入买入价格后，AI预警助手将计算止盈价、止损价及当前盈亏状态。</div><div id="alertStatus" class="status">预警仅在网页打开且行情刷新成功时判断；关闭网页后不会后台监控。</div></div>
 <div class="card"><h2>触发记录</h2><div id="alertLog" class="list"><div class="item">暂无触发记录</div></div></div>
 </section>
 <section id="report" class="grid tabpage" style="display:none">
 <div class="card full"><h2>每日收盘分析报告</h2><div class="row"><button class="btn primary" id="makeReport">生成今日报告</button><button class="btn" id="copyReport">复制报告</button><button class="btn" id="saveReport">保存报告</button></div><div class="report" id="reportText" style="margin-top:13px">点击“生成今日报告”。报告将使用当前已取得的行情与历史数据；如果行情为空，会明确标注数据缺失。</div></div>
 </section>
-<footer>V2.0 免费网页版。风险提示：本工具仅用于信息整理和学习，不提供投资建议，不保证行情实时性或完整性。数据接口由第三方提供，价格和净值请以交易所、基金管理人及持牌券商信息为准。预警不是交易指令。</footer>
+<footer>V2.2 免费网页版。风险提示：本工具仅用于信息整理和学习，不提供投资建议，不保证行情实时性或完整性。数据接口由第三方提供，价格和净值请以交易所、基金管理人及持牌券商信息为准。预警不是交易指令。</footer>
 </main>
 <script>
 const $=id=>document.getElementById(id);let quote=null,historyRows=[],lastAlertKey='',reports=JSON.parse(localStorage.getItem('aip_reports')||'[]');
+let fundWatch=JSON.parse(localStorage.getItem('aip_fund_watch')||'[]'),fundFetchBusy=false;const fundAlertKeys=new Set(JSON.parse(localStorage.getItem('aip_fund_alert_keys')||'[]'));
 const fmt=(v,n=2)=>Number.isFinite(Number(v))?Number(v).toFixed(n):'--';
 function setStatus(t,kind=''){const e=$('quoteStatus');e.textContent=t;e.className='status '+kind}
 function renderQuote(d){quote=d;$('price').textContent=fmt(d.price);$('price').className='price '+(d.change>=0?'positive':'negative');$('change').textContent=(d.change>=0?'+':'')+fmt(d.change)+'  ('+(d.pct>=0?'+':'')+fmt(d.pct)+'%)';$('change').className=d.change>=0?'positive':'negative';$('open').textContent=fmt(d.open);$('high').textContent=fmt(d.high);$('low').textContent=fmt(d.low);$('prev').textContent=fmt(d.prev);$('volume').textContent=d.volume?Number(d.volume).toLocaleString('zh-CN'):'--';$('amount').textContent=d.amount? (d.amount/1e8).toFixed(2)+'亿':'--';$('amplitude').textContent=d.amplitude?fmt(d.amplitude)+'%':'--';$('quoteTime').textContent=d.time||'--';$('watchPrice').textContent=fmt(d.price);checkAlerts();makeTrend()}
@@ -55,56 +66,158 @@ async function fetchHistory(){try{const u='https://push2his.eastmoney.com/api/qt
 function drawChart(){const c=$('chart'),ctx=c.getContext('2d'),w=c.clientWidth,h=c.clientHeight,dpr=window.devicePixelRatio||1;c.width=w*dpr;c.height=h*dpr;ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);if(!historyRows.length){ctx.fillStyle='#91a4bb';ctx.font='13px sans-serif';ctx.fillText('暂无可用历史K线',14,28);return}const vals=historyRows.map(x=>x.close),min=Math.min(...vals),max=Math.max(...vals),pad=18;ctx.strokeStyle='#26384e';ctx.lineWidth=1;for(let i=0;i<4;i++){let y=pad+i*(h-2*pad)/3;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}ctx.strokeStyle='#72b1ff';ctx.lineWidth=2;ctx.beginPath();vals.forEach((v,i)=>{let x=pad+i*(w-2*pad)/Math.max(1,vals.length-1),y=h-pad-(v-min)/(max-min||1)*(h-2*pad);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();ctx.fillStyle='#9eb0c6';ctx.font='11px sans-serif';ctx.fillText(fmt(max),5,13);ctx.fillText(fmt(min),5,h-4)}
 function makeTrend(){if(historyRows.length<5)return;const avg=n=>historyRows.slice(-n).reduce((s,x)=>s+x.close,0)/Math.min(n,historyRows.length);let a=avg(5),b=avg(20);$('ma5').textContent=fmt(a);$('ma20').textContent=fmt(b);$('trend').textContent=a>b?'短期均线高于20日均线':a<b?'短期均线低于20日均线':'均线接近'}
 function getSettings(){return JSON.parse(localStorage.getItem('aip_alerts')||'{}')}
-function saveSettings(){let s={tp:+$('takeProfit').value||0,sl:+$('stopLoss').value||0,up:+$('upPct').value||0,down:+$('downPct').value||0};localStorage.setItem('aip_alerts',JSON.stringify(s));$('alertStatus').textContent='设置已保存在当前浏览器。网页打开并刷新行情时才会检查预警。'}
+function calculateBuyAlerts(){
+  const buy=Number($('buyPrice').value),profit=Number($('profitPct').value),loss=Number($('lossPct').value);
+  if(!(buy>0)||!(profit>0)||!(loss>0)){alert('请填写有效的买入价格、止盈比例和止损比例');return}
+  const tp=buy*(1+profit/100),sl=buy*(1-loss/100);
+  $('takeProfit').value=tp.toFixed(3);$('stopLoss').value=sl.toFixed(3);
+  updateAIBuyAdvice();
+  $('alertStatus').textContent='已按买入价格计算止盈和止损价，请点击“保存预警设置”启用。';
+}
+function updateAIBuyAdvice(){
+  const buy=Number($('buyPrice').value),tp=Number($('takeProfit').value),sl=Number($('stopLoss').value);
+  const box=$('aiBuyAdvice');
+  if(!(buy>0)){box.textContent='请输入买入价格，系统将自动计算止盈价和止损价。';return}
+  let lines=['AI价格预警分析','买入价格：'+fmt(buy,3)+' 元'];
+  if(tp>0)lines.push('止盈触发价：'+fmt(tp,3)+' 元（'+fmt((tp/buy-1)*100,2)+'%）');
+  if(sl>0)lines.push('止损触发价：'+fmt(sl,3)+' 元（'+fmt((sl/buy-1)*100,2)+'%）');
+  if(quote){
+    const pnl=(quote.price/buy-1)*100;
+    lines.push('当前价格：'+fmt(quote.price,3)+' 元','当前浮动收益率：'+(pnl>=0?'+':'')+fmt(pnl,2)+'%');
+    if(tp>0&&quote.price>=tp)lines.push('提示：当前价格已达到止盈线，可评估是否分批止盈。');
+    else if(sl>0&&quote.price<=sl)lines.push('风险提示：当前价格已触及止损线，请重新评估风险承受能力。');
+    else lines.push('提示：价格尚未触及设定的止盈/止损线，继续观察。');
+  } else lines.push('等待行情数据，取得最新价格后显示当前盈亏判断。');
+  box.textContent=lines.join('；');
+}
+function saveSettings(){let s={buy:+$('buyPrice').value||0,profitPct:+$('profitPct').value||10,lossPct:+$('lossPct').value||5,tp:+$('takeProfit').value||0,sl:+$('stopLoss').value||0,up:+$('upPct').value||0,down:+$('downPct').value||0};localStorage.setItem('aip_alerts',JSON.stringify(s));$('alertStatus').textContent='买入价及预警设置已保存在当前浏览器。网页打开并刷新行情时才会检查预警。';updateAIBuyAdvice()}
 function logAlert(msg){let a=JSON.parse(localStorage.getItem('aip_alertlog')||'[]');a.unshift(new Date().toLocaleString('zh-CN')+' · '+msg);a=a.slice(0,10);localStorage.setItem('aip_alertlog',JSON.stringify(a));renderLogs();if('Notification'in window&&Notification.permission==='granted')new Notification('大唐发电价格预警',{body:msg})}
 function renderLogs(){let a=JSON.parse(localStorage.getItem('aip_alertlog')||'[]');$('alertLog').innerHTML=a.length?a.map(x=>'<div class="item">'+x+'</div>').join(''):'<div class="item">暂无触发记录</div>'}
-function checkAlerts(){if(!quote)return;let s=getSettings(),p=quote.price,key='';if(s.tp&&p>=s.tp)key='达到止盈价 '+s.tp+' 元';else if(s.sl&&p<=s.sl)key='达到止损价 '+s.sl+' 元';else if(s.up&&quote.pct>=s.up)key='涨幅达到 '+s.up+'%';else if(s.down&&quote.pct<=s.down)key='跌幅达到 '+s.down+'%';if(key&&key!==lastAlertKey){logAlert(key+'；当前价 '+fmt(p)+' 元');lastAlertKey=key}}
+function checkAlerts(){if(!quote)return;let s=getSettings(),p=quote.price,key='';if(s.tp&&p>=s.tp)key='达到止盈价 '+s.tp+' 元（相对买入价 '+fmt(s.buy,3)+' 元）';else if(s.sl&&p<=s.sl)key='达到止损价 '+s.sl+' 元（相对买入价 '+fmt(s.buy,3)+' 元）';else if(s.up&&quote.pct>=s.up)key='涨幅达到 '+s.up+'%';else if(s.down&&quote.pct<=s.down)key='跌幅达到 '+s.down+'%';if(key&&key!==lastAlertKey){logAlert(key+'；当前价 '+fmt(p)+' 元');lastAlertKey=key}updateAIBuyAdvice()}
 function report(){let date=new Date().toLocaleDateString('zh-CN');let lines=['AI智能股票基金分析平台 V2.0｜每日观察报告', '日期：'+date,'标的：大唐发电（601991）'];if(quote){lines.push('最新获取价格：'+fmt(quote.price)+' 元','涨跌：'+fmt(quote.change)+' 元（'+fmt(quote.pct)+'%）','开盘/最高/最低/昨收：'+[quote.open,quote.high,quote.low,quote.prev].map(x=>fmt(x)).join(' / ')+' 元')}else lines.push('行情：未能获取，当前无可核验报价');if(historyRows.length){lines.push('历史日线记录：'+historyRows.length+' 条','趋势观察：'+$('trend').textContent,'5日均价：'+$('ma5').textContent+'；20日均价：'+$('ma20').textContent)}else lines.push('趋势：历史K线不可用，无法计算均线');lines.push('说明：第三方行情可能延迟；本报告为数据整理，不构成投资建议。');$('reportText').textContent=lines.join('\n')}
 function switchTab(id){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));document.querySelectorAll('.tabpage').forEach(x=>x.style.display=x.id===id?'grid':'none')}
 document.querySelectorAll('.tab').forEach(x=>x.onclick=()=>switchTab(x.dataset.tab));
-$('refresh').onclick=fetchQuote;$('saveAlert').onclick=saveSettings;$('testAlert').onclick=()=>{if('Notification'in window&&Notification.permission==='granted')new Notification('通知测试成功',{body:'平台通知功能已启用'});else alert('请先点击“开启通知”并允许浏览器通知。')};
+$('refresh').onclick=fetchQuote;$('calcBuyAlert').onclick=calculateBuyAlerts;$('saveAlert').onclick=saveSettings;$('buyPrice').oninput=updateAIBuyAdvice;$('takeProfit').oninput=updateAIBuyAdvice;$('stopLoss').oninput=updateAIBuyAdvice;$('testAlert').onclick=()=>{if('Notification'in window&&Notification.permission==='granted')new Notification('通知测试成功',{body:'平台通知功能已启用'});else alert('请先点击“开启通知”并允许浏览器通知。')};
 $('notify').onclick=async()=>{if(!('Notification'in window)){alert('当前浏览器不支持通知');return}let p=await Notification.requestPermission();$('alertStatus').textContent=p==='granted'?'通知权限已开启':'通知权限未开启或被拒绝'};
 $('makeReport').onclick=report;$('copyReport').onclick=()=>navigator.clipboard?.writeText($('reportText').textContent).then(()=>alert('报告已复制')).catch(()=>alert('复制失败，请手动选择文字'));$('saveReport').onclick=()=>{reports.unshift({date:new Date().toISOString(),text:$('reportText').textContent});localStorage.setItem('aip_reports',JSON.stringify(reports));alert('报告已保存在当前浏览器')};
 function showFundFailure(message){$('fundStatus').textContent=message}
-function loadFundHistory(code){
-  $('fundStatus').textContent='实时估值接口不可用，正在尝试备用净值接口…';
-  const old=document.getElementById('fundHistoryScript');if(old)old.remove();
-  const s=document.createElement('script');s.id='fundHistoryScript';
-  s.src='https://fund.eastmoney.com/pingzhongdata/'+code+'.js?v='+Date.now();
-  s.onload=()=>{
-    const rows=window.Data_netWorthTrend;
-    if(!Array.isArray(rows)||!rows.length){
-      showFundFailure('备用接口已连接，但没有读取到该基金的净值记录。请核对基金代码或稍后重试。');return;
-    }
-    const last=rows[rows.length-1];
-    $('fundName').textContent=window.fS_name||('基金 '+code);
-    $('fundNav').textContent=Number.isFinite(Number(last.y))?Number(last.y).toFixed(4):'--';
-    $('fundGrowth').textContent=last.equityReturn!==undefined&&last.equityReturn!==null?Number(last.equityReturn).toFixed(2)+'%':'--';
-    $('fundDate').textContent=last.x?new Date(last.x).toLocaleDateString('zh-CN'):'--';
-    $('fundStatus').textContent='已取得最近公布的历史净值。此数据不是盘中实时估值，正式净值以基金管理人公告为准。';
-  };
-  s.onerror=()=>showFundFailure('实时估值和备用净值接口均无法连接。可能是网络、浏览器扩展或第三方接口限制；请稍后重试。');
-  document.body.appendChild(s);
+function saveFundWatch(){localStorage.setItem('aip_fund_watch',JSON.stringify(fundWatch))}
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function addFundToWatch(){
+ const code=$('watchFundCode').value.trim();
+ if(!/^\d{6}$/.test(code)){alert('请输入6位基金代码');return}
+ if(fundWatch.some(x=>x.code===code)){alert('这只基金已经在自选列表中');return}
+ fundWatch.push({code,name:'基金 '+code,buy:0,sell:0,stop:0,profitPct:10,lossPct:5,price:0,priceDate:'',source:'',growth:null});
+ saveFundWatch();$('watchFundCode').value='';renderFundWatch();refreshAllFunds();
 }
-$('fundBtn').onclick=()=>{
-  const code=$('fundCode').value.trim();
-  if(!/^\d{6}$/.test(code)){alert('请输入6位基金代码');return}
-  $('fundStatus').textContent='正在请求基金估值…';
-  let finished=false;
-  window.jsonpgz=(d)=>{
-    if(finished)return;finished=true;
-    $('fundName').textContent=d.name||'--';
-    $('fundNav').textContent=d.gsz||d.dwjz||'--';
-    $('fundGrowth').textContent=d.gszzl?d.gszzl+'%':'--';
-    $('fundDate').textContent=d.gztime||d.jzrq||'--';
-    $('fundStatus').textContent='实时估值接口返回数据。估值非正式净值。';
+function removeFund(code){fundWatch=fundWatch.filter(x=>x.code!==code);saveFundWatch();renderFundWatch();updateFundStats()}
+function editFund(code,key,value){
+ const f=fundWatch.find(x=>x.code===code);if(!f)return;
+ f[key]=Number(value)||0;
+ if(key==='buy'||key==='profitPct'||key==='lossPct'){
+   if(f.buy>0&&f.profitPct>0)f.sell=+(f.buy*(1+f.profitPct/100)).toFixed(4);
+   if(f.buy>0&&f.lossPct>0)f.stop=+(f.buy*(1-f.lossPct/100)).toFixed(4);
+ }
+ saveFundWatch();renderFundWatch();updateFundStats();
+}
+function renderFundWatch(){
+ const box=$('fundWatchlist');
+ if(!fundWatch.length){box.innerHTML='<div class="item">还没有自选基金，请输入代码添加。</div>';return}
+ box.innerHTML=fundWatch.map(f=>{
+  const pnl=f.buy>0&&f.price>0?(f.price/f.buy-1)*100:null;
+  let state='等待价格数据';
+  if(pnl!==null){if(f.sell>0&&f.price>=f.sell)state='达到止盈价';else if(f.stop>0&&f.price<=f.stop)state='达到止损价';else state='未触及预警线'}
+  const pnlText=pnl===null?'待填写买入价或等待净值':((pnl>=0?'+':'')+pnl.toFixed(2)+'%');
+  return `<div class="fund-card">
+   <div class="fund-card-head"><div><b>${escapeHtml(f.name)}</b><small style="display:block;color:var(--muted)">${f.code} · ${escapeHtml(f.priceDate||'尚无净值日期')}</small><div style="margin-top:5px">最新净值/估值：<b>${f.price>0?Number(f.price).toFixed(4):'--'}</b>　收益率：<b class="${pnl===null?'neutral':pnl>=0?'positive':'negative'}">${pnlText}</b></div><small style="color:var(--muted)">数据类型：${escapeHtml(f.source||'等待获取')}</small></div><button class="btn" onclick="removeFund('${f.code}')">移除</button></div>
+   <div class="fields">
+    <div><label>买入价格（元）</label><input type="number" min="0" step="0.0001" value="${f.buy||''}" placeholder="填写实际买入价" onchange="editFund('${f.code}','buy',this.value)"></div>
+    <div><label>止盈比例（%）</label><input type="number" min="0.1" step="0.1" value="${f.profitPct??10}" onchange="editFund('${f.code}','profitPct',this.value)"></div>
+    <div><label>目标卖出价（元）</label><input type="number" min="0" step="0.0001" value="${f.sell||''}" placeholder="按买入价自动计算，也可修改" onchange="editFund('${f.code}','sell',this.value)"></div>
+    <div><label>止损比例（%）</label><input type="number" min="0.1" step="0.1" value="${f.lossPct??5}" onchange="editFund('${f.code}','lossPct',this.value)"></div>
+    <div><label>止损价（元）</label><input type="number" min="0" step="0.0001" value="${f.stop||''}" placeholder="按买入价自动计算，也可修改" onchange="editFund('${f.code}','stop',this.value)"></div>
+    <div style="align-self:end"><button class="btn" onclick="calculateFundOne('${f.code}')">按买入价计算</button></div>
+   </div>
+   <div class="notice">AI规则分析：${state}。${pnl===null?'请填写买入价并刷新数据。':`按买入价计算的浮动盈亏率为 ${pnl>=0?'+':''}${pnl.toFixed(2)}%。`}</div>
+  </div>`;
+ }).join('');
+}
+function calculateFundOne(code){
+ const f=fundWatch.find(x=>x.code===code);if(!f)return;
+ if(!(f.buy>0)||!(f.profitPct>0)||!(f.lossPct>0)){alert('请先填写有效买入价、止盈比例和止损比例');return}
+ f.sell=+(f.buy*(1+f.profitPct/100)).toFixed(4);f.stop=+(f.buy*(1-f.lossPct/100)).toFixed(4);
+ saveFundWatch();renderFundWatch();updateFundStats();
+}
+function recordFundAlert(f,type){
+ const key=f.code+':'+type;
+ if(fundAlertKeys.has(key))return;
+ fundAlertKeys.add(key);localStorage.setItem('aip_fund_alert_keys',JSON.stringify([...fundAlertKeys]));
+ const message=`${f.name}（${f.code}）${type==='profit'?'达到止盈线':'触及止损线'}；买入价 ${Number(f.buy).toFixed(4)} 元，当前净值/估值 ${Number(f.price).toFixed(4)} 元`;
+ let logs=JSON.parse(localStorage.getItem('aip_fund_alert_log')||'[]');logs.unshift(new Date().toLocaleString('zh-CN')+' · '+message);logs=logs.slice(0,30);localStorage.setItem('aip_fund_alert_log',JSON.stringify(logs));
+ if('Notification'in window&&Notification.permission==='granted')new Notification('自选基金价格预警',{body:message});
+}
+function checkFundAlerts(){
+ fundWatch.forEach(f=>{if(!(f.buy>0&&f.price>0))return;if(f.sell>0&&f.price>=f.sell)recordFundAlert(f,'profit');else if(f.stop>0&&f.price<=f.stop)recordFundAlert(f,'loss')});
+ updateFundStats();renderFundWatch();
+}
+function renderFundLogs(){const a=JSON.parse(localStorage.getItem('aip_fund_alert_log')||'[]');$('fundAlertLog').innerHTML=a.length?a.map(x=>'<div class="item">'+escapeHtml(x)+'</div>').join(''):'<div class="item">暂无基金预警记录</div>'}
+function updateFundStats(){
+ const n=fundWatch.length,c=fundWatch.filter(f=>f.buy>0).length;
+ const p=fundWatch.filter(f=>f.buy>0&&f.price>0&&f.sell>0&&f.price>=f.sell).length;
+ const l=fundWatch.filter(f=>f.buy>0&&f.price>0&&f.stop>0&&f.price<=f.stop).length;
+ $('fundCount').textContent=n;$('fundCostCount').textContent=c;$('fundProfitCount').textContent=p;$('fundLossCount').textContent=l;
+ const priced=fundWatch.filter(f=>f.buy>0&&f.price>0);
+ if(!priced.length){$('fundAIStats').textContent='已添加 '+n+' 只自选基金，其中 '+c+' 只已填写买入价。获取基金净值/估值后，将统计组合盈亏和触发状态。';}
+ else{
+  const total=priced.reduce((s,f)=>s+(f.price/f.buy-1)*100,0)/priced.length;
+  const triggered=priced.filter(f=>(f.sell>0&&f.price>=f.sell)||(f.stop>0&&f.price<=f.stop)).length;
+  $('fundAIStats').textContent=`已纳入统计 ${priced.length} 只基金；各基金收益率简单平均为 ${total>=0?'+':''}${total.toFixed(2)}%；当前触及止盈/止损线 ${triggered} 只（止盈 ${p} 只，止损 ${l} 只）。此为等权收益率参考，不代表按实际持仓金额计算的组合收益。`;
+ }
+ renderFundLogs();
+}
+function fetchFundQuote(f){
+ return new Promise(resolve=>{
+  const old=document.getElementById('fundWatchScript');if(old)old.remove();
+  let done=false;
+  const finish=(data)=>{
+   if(done)return;done=true;clearTimeout(timer);
+   if(data){
+    f.name=data.name||f.name;
+    const val=Number(data.gsz||data.dwjz);
+    if(val>0){f.price=val;f.priceDate=data.gztime||data.jzrq||new Date().toLocaleDateString('zh-CN');f.source=data.gsz?'盘中估算':'接口返回净值';}
+   }
+   resolve(!!data);
   };
-  const old=document.getElementById('fundScript');if(old)old.remove();
-  const s=document.createElement('script');s.id='fundScript';
-  s.src='https://fundgz.1234567.com.cn/js/'+code+'.js?rt='+Date.now();
-  s.onerror=()=>{if(!finished){finished=true;loadFundHistory(code)}};
+  window.jsonpgz=(d)=>finish(d);
+  const s=document.createElement('script');s.id='fundWatchScript';
+  s.src='https://fundgz.1234567.com.cn/js/'+f.code+'.js?rt='+Date.now();
+  s.onerror=()=>finish(null);
+  const timer=setTimeout(()=>finish(null),5500);
   document.body.appendChild(s);
-  setTimeout(()=>{if(!finished&&$('fundStatus').textContent==='正在请求基金估值…'){finished=true;loadFundHistory(code)}},5000);
+ });
+}
+async function refreshAllFunds(){
+ if(fundFetchBusy)return;
+ if(!fundWatch.length){$('fundWatchStatus').textContent='请先添加自选基金。';return}
+ fundFetchBusy=true;$('fundWatchStatus').textContent='正在逐只刷新自选基金估值…';
+ let success=0;
+ for(const f of fundWatch){if(await fetchFundQuote(f))success++;saveFundWatch();renderFundWatch();updateFundStats()}
+ fundFetchBusy=false;
+ $('fundWatchStatus').textContent=`刷新完成：${success}/${fundWatch.length} 只基金取得估值/净值数据。若未取得，请稍后重试；不使用模拟价格。`;
+ checkFundAlerts();
+}
+$('addWatchFund').onclick=addFundToWatch;
+$('watchFundCode').addEventListener('keydown',e=>{if(e.key==='Enter')addFundToWatch()});
+$('refreshFunds').onclick=refreshAllFunds;
+$('fundBtn').onclick=()=>{
+ const code=$('fundCode').value.trim();
+ if(!/^\d{6}$/.test(code)){alert('请输入6位基金代码');return}
+ $('fundStatus').textContent='正在请求基金估值…';
+ const temp={code,name:'基金 '+code,buy:0,sell:0,stop:0,profitPct:10,lossPct:5,price:0};
+ fetchFundQuote(temp).then(ok=>{
+  if(ok){$('fundName').textContent=temp.name;$('fundNav').textContent=Number(temp.price).toFixed(4);$('fundGrowth').textContent='--';$('fundDate').textContent=temp.priceDate;$('fundStatus').textContent='已取得第三方接口返回数据；可能为盘中估值，并非正式净值。'}
+  else{$('fundStatus').textContent='基金估值接口未返回数据，请稍后重试或核对基金代码。'}
+ });
 };
-let a=getSettings();$('takeProfit').value=a.tp||'';$('stopLoss').value=a.sl||'';$('upPct').value=a.up||'';$('downPct').value=a.down||'';renderLogs();fetchQuote();setInterval(()=>{if(!document.hidden)fetchQuote()},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)fetchQuote()});window.addEventListener('resize',drawChart);
+let a=getSettings();$('buyPrice').value=a.buy||'';$('profitPct').value=a.profitPct||10;$('lossPct').value=a.lossPct||5;$('takeProfit').value=a.tp||'';$('stopLoss').value=a.sl||'';$('upPct').value=a.up||'';$('downPct').value=a.down||'';updateAIBuyAdvice();renderLogs();renderFundWatch();updateFundStats();fetchQuote();if(fundWatch.length)refreshAllFunds();setInterval(()=>{if(!document.hidden){fetchQuote();if(fundWatch.length)refreshAllFunds()}},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)fetchQuote()});window.addEventListener('resize',drawChart);
 </script></body></html>
